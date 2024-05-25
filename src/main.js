@@ -22,7 +22,7 @@ let currentPage = 1; //← відображаємо номер поточної 
 // Налаштовуємо SimpleLightbox
 
 function initilizeLightbox() {
-    const lightbox = new SimpleLightbox('.gallery a', {
+    let lightbox = new SimpleLightbox('.gallery a', {
     captionDelay: 250,
     captionsData: 'alt',
     captionPosition: 'bottom',
@@ -96,7 +96,15 @@ function loadMoreImages() {
         } else {
             const markup = galleryRender(data.hits);
             refs.gallery.insertAdjacentHTML('beforeend', markup);
-            initializeLightbox();
+
+            let lightbox = new SimpleLightbox('.gallery a',
+                {
+                    captionDelay: 250,
+                    captionsData: 'alt',
+                    captionPosition: 'bottom',
+                });
+            
+            lightbox.refresh();
         }
 
         refs.loader.classList.add('is-hidden');
