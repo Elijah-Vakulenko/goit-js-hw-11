@@ -1,12 +1,15 @@
 @import url('./reset.css');
 
+input {
+  background-color: transparent;
+}
+
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
 
-  background-color: #242424;
+  background-color: #514d4d;
   color: rgba(255, 255, 255, 0.87);
 
   font-synthesis: none;
@@ -16,8 +19,103 @@
   -webkit-text-size-adjust: 100%;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  background-color: transparent !important;
+}
+
 /* SEARCHING FORM */
 
+.logo {
+  font-size: 60px;
+  color: #ff3d00;
+}
+
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px;
+  background-color: #0e1514;
+}
+
+.search-form button {
+  display: none;
+  color: #ff3d00;
+  border: none;
+  background-color: transparent;
+}
+
+.search-form {
+  /* margin: 0 auto; */
+  font-size: 20px;
+  border: solid 0.3em #ff3d00;
+  display: flex;
+  position: relative;
+  border-radius: 2.5em;
+}
+.search-form input[type='text'] {
+  color: #ff3d00;
+  background-color: transparent;
+  font-weight: bold;
+  width: 2.5em;
+  height: 2.5em;
+  padding: 0.3em 2.1em 0.3em 0.4em;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 2.5em;
+  transition: width 800ms cubic-bezier(0.68, -0.55, 0.27, 1.55) 150ms;
+}
+.search-form input[type='text']:focus {
+  outline: none;
+}
+.search-form input[type='text']:focus,
+.search-form input[type='text']:not(:placeholder-shown) {
+  width: 18em;
+  transition: width 800ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  background-color: transparent;
+}
+
+.search-form input[type='text']:focus + button[type='submit'] {
+  display: block;
+}
+button[type='submit']:active {
+  display: block;
+}
+
+.search-form .handle {
+  background-color: transparent;
+  width: 1.4em;
+  height: 1.4em;
+  border: 0;
+  padding: 0;
+  outline: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0.55em;
+  right: 0.55em;
+  transform: rotate(-45deg) translateY(2.2em);
+  transition: transform 150ms ease-out 150ms;
+}
+.search-form .handle:before,
+.search-form .handle:after {
+  content: '';
+  background-color: #ff3d00;
+  width: 0.3em;
+  height: 1.4em;
+  position: absolute;
+}
+.search-form .handle:after {
+  transform: rotate(90deg);
+  opacity: 0;
+  transition: transform 150ms ease-out, opacity 150ms ease-out;
+}
+
+/* simple search form-------------------------- */
+/* 
 .search-form {
   display: flex;
   justify-content: center;
@@ -53,7 +151,7 @@
   border: none;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-
+  background-color: #cf777c;
   cursor: pointer;
   transition: background-color 300ms linear, color 300ms linear;
 }
@@ -62,6 +160,21 @@
 .search-form button:focus {
   background-color: #ff3d00;
   color: #ffffff;
+} */
+
+/* LOADER */
+/* Для приховування кастомного анімованого лоудера коли контент вже завантажено */
+.is-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
 
 .loader {
@@ -136,4 +249,58 @@
   87% {
     box-shadow: 0.2em -0.2em 0 0 currentcolor;
   }
+}
+
+/* GALLERY */
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.gallery-item {
+  height: 100%;
+  width: calc((100% - 48px) / 5);
+  border: 1px solid #ff3d00;
+}
+
+.image-description {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: #fff;
+  border-top: 1px solid #ff3d00;
+  padding: 3px;
+}
+
+.info-item {
+  text-align: center;
+}
+
+.info-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.33333;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+}
+.info-value {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 2;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
 }

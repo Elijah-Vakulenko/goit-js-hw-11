@@ -20,15 +20,23 @@
     />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
+
   <body>
-    <form class="search-form">
-      <input type="text" name="text" placeholder="Search images..." required />
-      <button type="submit">Search</button>
-    </form>
+    <section class="search-section">
+      <h1 class="logo">IMAGEnation</h1>
+      <form class="search-form">
+        <input
+          type="text"
+          name="query"
+          placeholder="Search images..."
+          required
+        />
+        <button type="submit">Search</button>
+        <p class="handle"></p>
+      </form>
+    </section>
     <div class="loader is-hidden"></div>
     <ul class="gallery"></ul>
-
-    <script type="module" src="./main.js"></script>
   </body>
 
   <script type="module" src="./main.js"></script>
