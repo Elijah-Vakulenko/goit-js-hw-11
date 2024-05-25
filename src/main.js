@@ -12,7 +12,6 @@ import { galleryRender} from './js/render-functions.js'; //← імпорт фу
 
 const refs = {
     form: document.querySelector('.search-form'),
-    input:  document.querySelector('input'),
     gallery: document.querySelector('.gallery'),
     loader: document.querySelector('.loader'),
 }
@@ -29,6 +28,19 @@ function initilizeLightbox() {
     
      lightbox.refresh();
 }
+//===============================================================================
+//IziToast Alert
+
+function showNoResultsMessage() {
+    iziToast.error({
+        title: 'Error!',
+        message: `Sorry, there are no images matching your search query. Please try again!`,
+        position: "center",
+        messageColor: 'white',
+        backgroundColor: '#ff3d00',
+        progressBarColor: '#B51B1B',
+    });
+}
 
 //===============================================================================
 // Налаштовуємо слухач подій та визначаємо, що буде відбуватися при запиті
@@ -37,10 +49,21 @@ refs.form.addEventListener('submit', event => {
     event.preventDefault();
     const query = event.target.elements.query.value.trim();
 
+    refs.loader.classList.remove('is-hidden'); //← видаляємо клас visually hidden щоб показати, що йде пошук, сторінка чекає на завантаження даних.
+    
     getImages(query).then(data => {
-        const markup = galleryRender(data.hits)
-        refs.gallery.innerHTML = markup;
-        initilizeLightbox()
+           if (data.hits.length === 0) {
+            // якщо немає результатів пошуку:
+               showNoResultsMessage(); //← запускаємо функцію оповіщення від iziToast;
+               refs.gallery.innerHTML = '';//← очищуємо галерею, якщо там лишився результат минулого пошуку;
+        } else {
+            //Якщо пошук за ключем дає результат, запускаємо рендер та виводимо зображення за допомогою Lightbox
+            const markup = galleryRender(data.hits);
+            refs.gallery.innerHTML = markup;
+            initilizeLightbox();
+        }
+
+        // Ховаємо індикатор завантаження даних після завантаження зображень
         refs.loader.classList.add('is-hidden');
     });
 });
