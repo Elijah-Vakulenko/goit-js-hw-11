@@ -1,4 +1,4 @@
-export function getImages(query) {
+export function getImages(query, page) {
     const BASE_URL = 'https://pixabay.com/api/';
     const params = new URLSearchParams({
         key: '44023178-1b17cf85b995cf2d6fd44a474', // ← Персональний ключ
@@ -6,7 +6,7 @@ export function getImages(query) {
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
-        page: 9,
+        page: page,
         per_page: 20,
     });
 

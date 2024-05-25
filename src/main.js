@@ -16,6 +16,8 @@ const refs = {
     loader: document.querySelector('.loader'),
 }
 
+let currentPage = 1; //← відображаємо номер поточної сторінки (після кожних 20 фото завантажуємо наступні 20, тобто додаємо нову сторінку)
+
 //===============================================================================
 // Налаштовуємо SimpleLightbox
 
@@ -48,6 +50,7 @@ function showNoResultsMessage() {
 refs.form.addEventListener('submit', event => {
     event.preventDefault();
     const query = event.target.elements.query.value.trim();
+    currentPage = 1;
 
     refs.loader.classList.remove('is-hidden'); //← видаляємо клас visually hidden щоб показати, що йде пошук, сторінка чекає на завантаження даних.
     
@@ -60,10 +63,42 @@ refs.form.addEventListener('submit', event => {
             //Якщо пошук за ключем дає результат, запускаємо рендер та виводимо зображення за допомогою Lightbox
             const markup = galleryRender(data.hits);
             refs.gallery.innerHTML = markup;
-            initilizeLightbox();
-        }
+               initilizeLightbox(); //← підключаємо Лайтбокс
 
+               //Тепер, після того як в нас вже завантажилися 20 зображень, ми створюємо кнопку "Завантажити ще"
+
+
+               if (data.totalHits > 20) {
+                const loadMoreBtn = document.createElement('button');
+                loadMoreBtn.textContent = 'Load More';
+                loadMoreBtn.classList.add('load-more');
+                refs.gallery.insertAdjacentElement('afterend', loadMoreBtn); // ← додаємо кнопку після галереї
+                loadMoreBtn.addEventListener('click', loadMoreImages); // ← Викликаємо функцію завантаження наступних 20 зображень
+            }
+        }
         // Ховаємо індикатор завантаження даних після завантаження зображень
         refs.loader.classList.add('is-hidden');
     });
 });
+
+//============================================================================
+// Додаємо наступну сторінку з 20ма зображеннями при кліку по кнопці
+
+function loadMoreImages() {
+    currentPage++; // 
+    const query = refs.form.elements.query.value.trim();
+
+    refs.loader.classList.remove('is-hidden');
+
+    getImages(query, currentPage).then(data => {
+        if (data.hits.length === 0) {
+            showNoResultsMessage();
+        } else {
+            const markup = galleryRender(data.hits);
+            refs.gallery.insertAdjacentHTML('beforeend', markup);
+            initializeLightbox();
+        }
+
+        refs.loader.classList.add('is-hidden');
+    });
+}
