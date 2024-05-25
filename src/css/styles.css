@@ -1,9 +1,5 @@
 @import url('./reset.css');
 
-input {
-  background-color: transparent;
-}
-
 :root {
   font-size: 16px;
   line-height: 24px;
@@ -19,16 +15,11 @@ input {
   -webkit-text-size-adjust: 100%;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  background-color: transparent !important;
-}
 
 /* SEARCHING FORM */
 
 .logo {
-  font-size: 60px;
+  font-size: 24px;
   color: #ff3d00;
 }
 
@@ -36,7 +27,7 @@ input:-webkit-autofill:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 50px;
+  padding: 25px;
   background-color: #0e1514;
 }
 
@@ -303,4 +294,18 @@ button[type='submit']:active {
   line-height: 2;
   letter-spacing: 0.04em;
   color: #2e2f42;
+}
+
+
+@media screen and (min-width: 768px) {
+.logo {
+  font-size: 40px;
+}
+}
+
+
+@media screen and (min-width: 1200px) {
+  .logo{
+    font-size: 60px;
+  }
 }
